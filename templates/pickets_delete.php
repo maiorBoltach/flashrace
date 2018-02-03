@@ -1,15 +1,12 @@
 <?php
-include '../config.inc.php';
 session_start();
 if(!isset($_SESSION['admin_id']))
 {
 	header("Location: /admin/index.php");
 }
-
 include_once '../scripts/header_logged.php';
-
+include '../config.inc.php';
 ?>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,8 +22,6 @@ include_once '../scripts/header_logged.php';
 		@import url("../css/custom-nivo-slider.css");
 		@import url("../css/jquery.fancybox.css");
 	</style>
-	<link type="text/css" rel="stylesheet" media="all" href="../css/chat.css" />
-	<link type="text/css" rel="stylesheet" media="all" href="../css/screen.css" />
 	
 </head>
 
@@ -53,41 +48,36 @@ include_once '../scripts/header_logged.php';
 					</br></br>
 					<ul id="nav3">
 					<li><a href="/admin/settings.php">Запуск гонки</a>
-					<li><a href="/admin/pickets.php">Пикеты</a>
+					<li><a href="/admin/pickets.php" class="active">Пикеты</a>
 					<li><a href="/admin/table.php">Турнирная таблица</a>
-					<li><a href="/admin/teams.php" class="active">Команды</a>
+					<li><a href="/admin/teams.php">Команды</a>
 					<li><a href="/admin/register_team.php">Добавить команду</a>
 					<li><a href="/admin/register_admin.php">Добавить админа</a>
 					</ul>
 				</div>	
-				<div class="pagetitle">
-					<?php include_once '../templates/team_header.php'; ?>
-						</br></br>
-					<ul id="nav3">
-					<li><?php echo '<a href="/admin/team_edit.php?team=show&id='.$team['user_id'].'" class="active">Прохождение гонки</a>'; ?>
-					<li><?php echo '<a href="javascript:void(0)" onclick="javascript:chatWith(\''.$team['user_name'].'\')"">Чат</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=begin&id='.$team['user_id'].'">Указать начальный КП</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=fine&id='.$team['user_id'].'">Штрафы и бонусы</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=change_name&id='.$team['user_id'].'">Переименовать</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=change_pass&id='.$team['user_id'].'">Сменить пароль</a>'; ?>
-					</ul>	
-						
-						
-						</div>	
-				</div>	
-				
-					<?php 
-					include_once '../scripts/team_stats_script.php';
-					?>
-					
-					
+		
 				<div id="content">
+					<div id="wide" align="center">
+					<h3>Редактирование контрольной точки</h3>
+					<?php
+					echo '<form name="editform" action="'.$_SERVER['PHP_SELF'].'?action=update&id='.$_GET['id'].'" method="POST">'; 
+					echo '<p><label># пункта</label><br />'; 
+					echo '<input type="text" class="text" name="num" value="'.$_GET['id'].'" /></p>'; 
+					echo '<p><label>Наименование</label><br />'; 
+					echo '<input type="text" class="text" name="name" value="'.$item['name'].'" /></p>'; 
+					echo '<p><label>Описание</label><br />'; 
+					echo '<textarea name="text">'.$item['text'].'</textarea></p>';  
+					echo '<p><label>Код точки</label><br />'; 
+					echo '<input type="text" class="text" name="code" value="'.$item['code'].'" /></p>'; 
+					echo '<p><input type="submit" class="submitblue" value="Сохранить"> '; 
+					echo '<input type="submit" class="submit" onClick="history.back();" value="Отменить"></p>'; 
+					echo '</form>'; 
+						?>
+
+					</div>		<!-- #wide ends -->
 				
-									
-				<div id="wide" align="center">
-				</div>
-			
-			</div>	<!-- 	#holder ends -->
+				</div>		<!-- #content ends -->
+			</div>		<!-- #holder ends -->
 			
 			
 			<?php include '../templates/footer.php' ?>
@@ -99,15 +89,14 @@ include_once '../scripts/header_logged.php';
 
 
 
-	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript" src="../js/chat.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.pack.js"></script>
 	<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
 	<script type="text/javascript" src="js/filter.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
-
+	
 		
 </body>
 </html>

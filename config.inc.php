@@ -1,10 +1,10 @@
 <?php
 $PRETITLE = 'FLASHRACE';
-$DBIP = '127.0.0.1';
+$DBIP = 'localhost';
 $DBNAME = 'flashrace';
 $DBLOGIN = 'root';
 $DBPASSWORD = 'password';
-$DOMAIN = 'localhost/flashrace/';
+$DOMAIN = 'localhost';
 
 $database = new DateTimeZone("Europe/Minsk"); // часовой пояс сервера базы данных
 $client = new DateTimeZone("Europe/Minsk"); // часовой пояс клиентов

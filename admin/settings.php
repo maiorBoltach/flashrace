@@ -53,7 +53,7 @@ if(isset($_POST['reset']))
 	 bonus1  =NULL, bonus2  =NULL, bonus3  =NULL, bonus4  =NULL, bonus5  =NULL, bonus6  =NULL, bonus7  =NULL,
 	 bonus8  =NULL, bonus9  =NULL, bonus10  =NULL, bonus11  =NULL, bonus12  =NULL, bonus13  =NULL, bonus14  =NULL, bonus15  =NULL, bonus16  =NULL,
 	 bonus17  =NULL, bonus18  =NULL, bonus19  =NULL, bonus20  =NULL, bonus21  =NULL, bonus22  =NULL, bonus23  =NULL, bonus24  =NULL, bonus25  =NULL,
-	 bonus26  =NULL, bonus27  =NULL, bonus28  =NULL, bonus29  =NULL, bonus30  = NULL;;");
+	 bonus26  =NULL, bonus27  =NULL, bonus28  =NULL, bonus29  =NULL, bonus30  = NULL;");
 	 if($query)
 		{
 				header('Location: /admin/settings.php?send=success_reset');
