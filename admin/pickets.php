@@ -6,7 +6,7 @@ if(!isset($_SESSION['admin_id']))
 }
 else
 {
-include_once '../config.inc.php';
+include_once '../php/config.inc.php';
 
 if ( !isset( $_GET["action"] ) ) $_GET["action"] = "showlist";  
   
@@ -22,7 +22,9 @@ switch ( $_GET["action"] )
     get_edit_item_form(); break; 
   case "update":      // Обновить запись в таблице БД
     update_item(); break; 
-  case "delete":      // Удалить запись в таблице БД
+  case "delete":
+    delete_form_item(); break;
+  case "delete_pic":      // Удалить запись в таблице БД
     delete_item(); break;
   default: 
     show_list(); 
@@ -84,6 +86,11 @@ function update_item()
 } 
 
 // Функция удаляет запись в таблице БД 
+function delete_form_item() 
+{ 
+  include_once '../templates/pickets_delete.php';
+} 
+
 function delete_item() 
 { 
   $query = "DELETE FROM checkpoints WHERE id=".$_GET['id']; 

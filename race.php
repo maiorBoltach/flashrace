@@ -1,121 +1,196 @@
-<?php
-session_start();
-include_once 'config.inc.php';
-include_once 'scripts/header_logged.php';
+<?php session_start();
+include_once '/php/config.inc.php';
+include_once '/php/header_logged.php';
 if(!isset($_SESSION['user']))
 {
-	header("Location: index.php");
+	header("Location: login.php");
 }
-else{
-	include_once 'scripts/race_script.php';
-}
+else
+{
+	include_once '/php/race_script.php';
 ?>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-
+<!DOCTYPE HTML>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<title><?php echo $PRETITLE; ?> &#9679; ГОНКА</title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<meta name="description" content="..." />
-	<meta name="keywords" content="..." />
+<link rel="shortcut icon" href="images/splash/favicon.ico" type="image/x-icon" /> 
+    
+<title><?php echo $PRETITLE; ?> | Текущее задание</title>
 
-	<style type="text/css" media="all">
-		@import url("css/style.css");
-		@import url("css/nivo-slider.css");
-		@import url("css/custom-nivo-slider.css");
-		@import url("css/jquery.fancybox.css");
-	</style>
-	<!--[if lt IE 8]><style type="text/css" media="all">@import url("css/ie.css");</style><![endif]-->
+<link href="styles/style.css"           rel="stylesheet" type="text/css">
+<link href="styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="styles/animate.css"         rel="stylesheet" type="text/css">
 
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/jqueryui.js"></script>
+<script type="text/javascript" src="scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
 </head>
 
-<body>
-	
-	<div id="bgc">
-							
-		<div class="wrapper">		<!-- wrapper begins -->
+<body class="left-sidebar"> 
 
-			<div id="header">
-				<h1><a href="/"><span><?php echo $PRETITLE; ?></span></a></h1>
-				
-				<ul>
-					<li><a href="/">Главная</a></li>
-					<li><a href="/about.php">О мероприятии</a></li>
-					<li><a href="/logout.php?logout" class="active"><font color='#f6cc36'>Выйти из гонки</font></a></li>
-					<?php echo $menu_admin; ?> 
-				</ul>
-			</div>		<!-- #header ends -->
-			
-						
-			<div id="holder">
-			
-				<div class="pagetitle">
-					<h2>Команда "<?php echo $userRow['user_name']; ?>" (ID: <?php echo $userRow['user_id']; ?>)</h2>
-					<br><br>
-					<ul id="nav3">
-					<li><a href="/race.php" class="active">Прохождение гонки</a>
-					<li><?php echo '<a href="javascript:void(0)" onclick="javascript:chatWith(\'flashrace_admin\')"">Чат с организаторами</a>'; ?>
-					<?php if($userRow['status']==1) { echo '<li><a href="/stats_team.php">Статистика прохождения гонки</a>';
-					echo '<li><a href="">Итоговая таблица</a>'; } ?>
+<?php include_once '/templates/preloader.php'; ?>
+    
+<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
+    
+<div id="header-fixed" class="header-style-1">
+    <a class="header-1 open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
+    <a class="header-logo" href="/index.php"><img src="images/logo-dark2.png" alt="img"></a>
+</div>
+    
+            
+<div class="all-elements">
+    <div class="snap-drawers">
+         <div class="snap-drawer snap-drawer-left">        
+            <div class="sidebar-header-left">
+                <a href="/index.php"><img src="images/logo-dark2.png" alt="img"></a>
+                <a class="close-sidebar" href="#"><i class="fa fa-times"></i></a>
+            </div>      
+        
+            <?php 
+			include_once 'templates/main_menu.php'; ?>
+            
+			<p class="sidebar-divider">Гонка</p><div class="sidebar-menu">
+								<a class="menu-item" href="/team.php">
+                    <i class="fa fa-users"></i>
+                    <em>Состав команды</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item menu-item-active" href="/race.php">
+                    <i class="fa fa-map-marker"></i>
+                    <em>Текущее задание</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/chat.php">
+                    <i class="fa fa-comment-o"></i>
+                    <em>Чат с организаторами</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/team_stats.php">
+                    <i class="fa fa-file-o"></i>
+                    <em>Статистика команды</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/logout.php?logout">
+                    <i class="fa fa-sign-out"></i>
+                    <em>Выйти из профиля</em>
+                    <i class="fa fa-circle"></i>
+                </a>
 				</div>
+			<?php 
+			
+			include_once 'templates/admin_menu.php';
+			include_once 'templates/sponsors.php'; 
+			?>
+                       
+            <p class="sidebar-footer">Copyright 2015. Все права защищены</p>
+            
+        </div>     
+        
+        
+        <div id="content" class="snap-content">
+            <div class="content">
+            <div class="header-clear-large"></div>
+            <!--Page content goes here, fixed elements go above the all elements class-->
+                
+				<div class="container-fullscreen heading-style-3 bg-3">
+                    <h3 class="heading-title">Команда "<?php echo $userRow['user_name']; ?>" (ID: <?php echo $userRow['user_id']; ?>)</h3>
+                    <em class="heading-subtitle">Статус: 
+					<?php
+					if($userRow['status'] == NULL) echo 'Зарегистрирована'; 
+					else if($userRow['status'] == -1) echo '<font color="#009dfd">На старте</font>';
+					else if($userRow['status'] == 0) echo '<font color="#ffe000">На гонке</font>';
+					else if($userRow['status'] == 1) echo '<font color="#00ff00">Финишировала</font>';
+					else echo '<font color="red">Неизвестно</font>';?> </em>
+                    <div class="overlay bg-black"></div>
+                </div>
 				
-								
-				<div id="content">
-					<div id="wide" align="center">
+				
+                <div class="heading-style-1 container half-bottom">
+                    <a href="#"><i class="fa fa-map-marker"></i></a>
+                    <h4>Текущее задание</h4>
+                    <div class="heading-block bg-red-dark"></div>
+                    <div class="heading-decoration bg-red-dark"></div>
+                </div>
+                <div class="container">
+					<center>
 						<?php 
 						if($userRow['status']==NULL)    
 						{ echo "<h3> ГОНКА НАЧНЁТСЯ ОЧЕНЬ СКОРО...</h3>"; }
 						else if($userRow['status']==-1) 
 						{
-							echo "<form id=\"sum\" method=\"POST\"  action=\"\"><input type=\"submit\" class=\"submit\" value=\"НАЧАТЬ ГОНКУ\" name=\"begin_button\"/></form>";
+							echo '<div class="one-third-responsive full-bottom"></div>';
+							echo '<div class="decoration hide-if-responsive"></div>';
+							echo  "<div class=\"one-third-responsive full-bottom\"><form id=\"sum\" method=\"POST\"  action=\"\">
+							<input type=\"submit\" class=\"buttonWrap button button-orange contactSubmitButton\" value=\"НАЧАТЬ ГОНКУ\" name=\"begin_button\"/></form>";
 						}
 						else if($userRow['status']==0)
 						{	echo "<h3>КОНТРОЛЬНЫЙ ПУНКТ №".$userRow['id']."</h3>";
-							echo "<blockquote>".$userRow['text']."</blockquote>";
-							echo "<form id=\"sum\" method=\"POST\"  action=\"\"> <input type=\"text\" class=\"text\" name = \"code_answer\" /></p>";
-							echo "<input type=\"submit\" class=\"submit\" value=\"Ответить\" name=\"answer_button\"/></form>";
+							echo "
+									<div class=\"quote-3 container\">
+									<i class=\"fa fa-quote-left\"></i>
+									<p>".$userRow['text']."</p></div>";
+							echo '<div class="one-third-responsive full-bottom"></div>';
+							echo '<div class="decoration hide-if-responsive"></div><div class="one-third-responsive full-bottom"><form id="sum" method="POST"  action="">';
+							echo "<input class=\"text-field green-field\" onfocus=\"if (this.value=='Код') this.value = ''\" onblur=\"if (this.value=='') this.value = 'Код'\" type=\"text\" name = \"code_answer\" value=\"Код\">
+								<input type=\"submit\" class=\"buttonWrap button button-orange contactSubmitButton\" value=\"Внести код\" name=\"answer_button\"/>
+							</form></div>  ";
+							echo '<div class="one-third-responsive full-bottom"></div>';
 						} 
 						else if($userRow['status']==1)
 						{
-							echo "<h3> ГОНКА ЗАВЕРШЕНА. РЕЗУЛЬТАТЫ БУДУТ ПОДВЕДЕНЫ, КАК ТОЛЬКО ФИНИШИРУЮТ ВСЕ КОМАНДЫ.</h3> <p>А пока Вы можете посмотреть собственную статистику прохождения гонки во вкладке \"Статистика прохождения гонки\"</p>";
+							echo "<h3> ГОНКА ЗАВЕРШЕНА. РЕЗУЛЬТАТЫ БУДУТ ПОДВЕДЕНЫ, КАК ТОЛЬКО ФИНИШИРУЮТ ВСЕ КОМАНДЫ.</h3> <p>А пока Вы можете посмотреть собственную статистику прохождения гонки во вкладке \"Статистика команды\"</p>";
 						}
 						?>
-						
-						
-					</div>		<!-- #main ends -->
-					
-					
-				</div>		<!-- #content ends -->
-			</div>		<!-- #holder ends -->
-				
-			<?php include 'templates/footer.php' ?>
-			
-		</div>		<!-- wrapper ends -->
-		
-	
-	</div>
-
-
-
-
-	<script type="text/javascript" src="js/jquery.js"></script>
-
-	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.easing.pack.js"></script>
-	<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
-	<script type="text/javascript" src="js/filter.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-	
-	<!-- Twitter badge-->
-	<script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-	<script type="text/javascript" src="http://twitter.com/statuses/user_timeline/enstyled.json?callback=twitterCallback2&amp;count=1"></script>
-	
-		
+				</center>
+				</div>
+                                
+                <div class="decoration"></div>
+                
+                <?php 
+				include_once 'templates/footer.php'; ?>               
+                
+            <!-- End of entire page content-->
+            </div> 
+        </div>
+    </div>  
+    <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Наверх</a>
+</div>
+    
 </body>
-</html>
+
+
+<?
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

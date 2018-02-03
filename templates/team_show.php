@@ -1,113 +1,191 @@
-<?php
-include '../config.inc.php';
+<?php 
 session_start();
+include '../php/config.inc.php';
+include_once '../php/header_logged.php';
 if(!isset($_SESSION['admin_id']))
 {
 	header("Location: /admin/index.php");
 }
+else {
 
-include_once '../scripts/header_logged.php';
+ ?>
 
-?>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	 <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-	<title><?php echo $PRETITLE; ?> &#9679; АДМИН-ЦЕНТР</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<meta name="description" content="..." />
-	<meta name="keywords" content="..." />
+<link rel="shortcut icon" href="./images/splash/favicon.ico" type="image/x-icon" /> 
+    
+<title><?php echo $PRETITLE; ?> | Статистика команды</title>
 
-	<style type="text/css" media="all">
-		@import url("../css/style.css");
-		@import url("../css/nivo-slider.css");
-		@import url("../css/custom-nivo-slider.css");
-		@import url("../css/jquery.fancybox.css");
-	</style>
-	<link type="text/css" rel="stylesheet" media="all" href="../css/chat.css" />
-	<link type="text/css" rel="stylesheet" media="all" href="../css/screen.css" />
-	
+<link href="../styles/style.css"           rel="stylesheet" type="text/css">
+<link href="../styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="../styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="../styles/animate.css"         rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../styles/jquery.mCustomScrollbar.css">
+<script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript" src="../scripts/jqueryui.js"></script>
+<script type="text/javascript" src="../scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="../scripts/custom.js"></script>
+
 </head>
 
-<body>
-	
-	<div id="bgc">
-							
-		<div class="wrapper">		<!-- wrapper begins -->
-			<div id="header">
-				<h1><a href="/"><span><?php echo $PRETITLE; ?></span></a></h1>
-				
-				<ul>
-					<li><a href="/">Главная</a></li>
-					<li><a href="/about.php" >О мероприятии</a></li>
-					<li><a href="/login.php"><font color='#f6cc36'><?php echo $menu_race; ?> </font></a></li>
-					<li><a href="/admin/logout.php?logout_admin" class="active"><font color='#009EE5'>ВЫЙТИ ИЗ АДМИН-ЦЕНТРА</font></a></li>
-				</ul>
-			</div>		<!-- #header ends -->
+<body class="left-sidebar"> 
+
+<?php include_once '../templates/preloader.php'; ?>
+    
+<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
+    
+<div id="header-fixed" class="header-style-1">
+    <a class="header-1 open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
+    <a class="header-logo" href="/index.php"><img src="../images/logo-dark2.png" alt="img"></a>
+</div>
+    
+            
+<div class="all-elements">
+    <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">        
+            <div class="sidebar-header-left">
+                <a href="/index.php"><img src="../images/logo-dark2.png" alt="img"></a>
+                <a class="close-sidebar" href="#"><i class="fa fa-times"></i></a>
+            </div>      
+        
+            <?php 
+			include_once '../templates/main_menu.php';
+            include_once '../templates/user_menu.php';
+			?>
 			
-			
-			<div id="holder">
-				<div class="pagetitle">
-					<h2>АДМИН-ЦЕНТР</h2>
-					</br></br>
-					<ul id="nav3">
-					<li><a href="/admin/settings.php">Запуск гонки</a>
-					<li><a href="/admin/pickets.php">Пикеты</a>
-					<li><a href="/admin/table.php">Турнирная таблица</a>
-					<li><a href="/admin/teams.php" class="active">Команды</a>
-					<li><a href="/admin/register_team.php">Добавить команду</a>
-					<li><a href="/admin/register_admin.php">Добавить админа</a>
-					</ul>
-				</div>	
-				<div class="pagetitle">
-					<?php include_once '../templates/team_header.php'; ?>
-						</br></br>
-					<ul id="nav3">
-					<li><?php echo '<a href="/admin/team_edit.php?team=show&id='.$team['user_id'].'" class="active">Прохождение гонки</a>'; ?>
-					<li><?php echo '<a href="javascript:void(0)" onclick="javascript:chatWith(\''.$team['user_name'].'\')"">Чат</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=begin&id='.$team['user_id'].'">Указать начальный КП</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=fine&id='.$team['user_id'].'">Штрафы и бонусы</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=change_name&id='.$team['user_id'].'">Переименовать</a>'; ?>
-					<li><?php echo '<a href="/admin/team_edit.php?team=change_pass&id='.$team['user_id'].'">Сменить пароль</a>'; ?>
-					</ul>	
-						
-						
-						</div>	
-				</div>	
+			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
+				<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>
 				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-flag"></i>
+                    <em>Контрольные пикеты</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/pickets.php">    <i class="fa fa-angle-right"></i><em>  Просмотр всех КП   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/pickets.php?action=addform">        <i class="fa fa-angle-right"></i><em>  Добавление КП   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-trophy"></i>
+                    <em>Турнирная таблица</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/table.php">    <i class="fa fa-angle-right"></i><em> Малая таблица   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/leaderboard.php">        <i class="fa fa-angle-right"></i><em>  Расширенная таблица   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-users"></i>
+                    <em>Команды</em>
+					<strong>2</strong></a>
+					<div class="submenu ">
+                        <a class="submenu-item " href="/admin/teams.php">    <i class="fa fa-angle-right"></i><em>  Просмотр команд   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item" href="/admin/register_team.php">   <i class="fa fa-angle-right"></i><em>  Создать новую   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu menu-item-active" href="#">
+                      <i class="fa fa-user"></i>
+                    <em>Текущая команда</em>
+					<strong>6</strong></a>
+					<div class="submenu submenu-active">
+					<?php
+						echo '<a class="submenu-item" href="/admin/team_edit.php?team=crew&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Состав команды  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item submenu-item-active" href="/admin/team_edit.php?team=show&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Статистика команды  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/team_edit.php?team=fine&id='.$_GET['id'].'">        <i class="fa fa-angle-right"></i><em>  Бонусы и штрафы   </em><i class="fa fa-circle"></i></a>
+						<a class="submenu-item" href="/admin/team_edit.php?team=settings&id='.$_GET['id'].'"">    <i class="fa fa-angle-right"></i><em>  Настройки команды  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item" href="#">    <i class="fa fa-angle-right"></i><em>  Чат с командой  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item" href="/admin/team_edit.php?team=delete&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Удалить команду  </em><i class="fa fa-circle"></i></a>';
+						?>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-user-secret"></i>
+                    <em>Администрация</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/admin_list.php">    <i class="fa fa-angle-right"></i><em> Список админов  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+								
+				<a class="menu-item" href="/admin/logout.php?logout_admin">
+                    <i class="fa fa-sign-out"></i>
+                    <em>Выйти из админ-центра</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+			</div>
+			
+			<?php 
+			include_once '../templates/sponsors.php'; ?>
+                       
+            <p class="sidebar-footer">Copyright 2015. Все права защищены</p>
+            
+        </div>
+                
+        
+        
+        <div id="content" class="snap-content">
+		<div class="content">
+            <div class="header-clear-large"></div>
+            <!--Page content goes here, fixed elements go above the all elements class-->  
+				<?php include_once '../templates/team_header.php'; ?>
+            
+			 <div class="heading-style-1 container half-bottom">
+                    <a href="#"><i class="fa fa-user"></i></a>
+                    <h4>Статистика команды</h4>
+                    <div class="heading-block bg-red-dark"></div>
+                    <div class="heading-decoration bg-red-dark"></div>
+                </div>
+				<div class="container">
 					<?php 
-					include_once '../scripts/team_stats_script.php';
+					include_once '../php/team_stats_script.php';
 					?>
-					
-					
-				<div id="content">
-				
-									
-				<div id="wide" align="center">
 				</div>
 			
-			</div>	<!-- 	#holder ends -->
-			
-			
-			<?php include '../templates/footer.php' ?>
-		</div>		<!-- wrapper ends -->
-		
-	
-	</div>
-
-
-
-
-	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript" src="../js/chat.js"></script>
-	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.easing.pack.js"></script>
-	<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
-	<script type="text/javascript" src="js/filter.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-
-		
+            <!-- End of entire page content-->
+			</div>
+        </div>
+    </div>  
+    <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Наверх</a>
+</div>
+<script src="../scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script>
+	$(window).load(function(){
+				
+				$("#content-1").mCustomScrollbar({
+					axis:"x",
+					theme:"inset-3-dark",
+					advanced:{
+						autoExpandHorizontalScroll:true
+					}
+				});
+				$("#content-2").mCustomScrollbar({
+					axis:"x",
+					theme:"inset-3-dark",
+					advanced:{
+						autoExpandHorizontalScroll:true
+					}
+				});
+	})(jQuery);
+	</script>
 </body>
-</html>
+<?php } ?>

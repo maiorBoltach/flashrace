@@ -6,36 +6,45 @@ if(!isset($_SESSION['admin_id']))
 }
 else
 {
-$_SESSION['username'] = "flashrace_admin";
-include_once '../config.inc.php';
-//if ( !isset( $_GET["team"] ) ) $_GET["team"] = "showlist";  
-  
+include_once '../php/config.inc.php';
+ 
 switch ( $_GET["team"] ) 
 { 
-  case "show":    // Список всех записей в таблице БД
-    show(); break; 
-  case "change_name":    // Форма для изменения имени 
-    get_edit_name_form(); break; 
-  case "update_name":      // Обновить логин/имя в таблице БД
-    update_name(); break; 
-	case "change_pass":      // Форма для изменения пароля
-   get_edit_pass_form(); break; 
-	case "update_pass":      // Обновить пароль в таблице БД
-    update_pass(); break; 
-	case "fine":      // Форма для добавления штрафа
-   get_edit_fine_form(); break; 
-	case "update_fine":      // Обновить штрафа в таблице БД
-    update_fine(); break; 
-	
-	case "begin":      // Форма для добавления начального КП
-   get_edit_begin_form(); break; 
+	case "crew":    // Список команды в таблице БД
+		crew(); break; 
+	case "show":    // Список всех записей в таблице БД
+		show(); break; 
+	case "settings":      // Форма для настроек
+		get_edit_settings_form(); break; 
+	case "update_crew":      // Форма для настроек
+		update_crew(); break; 
+	case "update_name":      // Обновить логин/имя в таблице БД
+		update_name(); break; 
 	case "update_begin":      // Обновить начальный КП в таблице БД
-    update_begin(); break; 
-	
-  case "delete":      // Удалить запись в таблице БД
-    delete_item(); break;
+		update_begin(); break; 	
+	case "update_pass":      // Обновить пароль в таблице БД
+		update_pass(); break; 
+	case "fine":      // Форма для добавления штрафа
+		get_edit_fine_form(); break; 
+	case "update_fine":      // Обновить штрафа в таблице БД
+		update_fine(); break; 
+	case "delete":      // Форма для удаления
+		get_delete_form(); break;
+	case "delete_team":      // Удалить запись в таблице БД
+		delete_item(); break;
 }
 }
+
+// Функция выводит список всех записей в таблице БД
+function crew() 
+{ 
+  $query = 'SELECT * FROM users WHERE user_id='.$_GET['id']; 
+  $res = mysql_query( $query ); 
+  $team = mysql_fetch_array($res);
+  include_once '../templates/team_crew.php';
+} 
+
+
 // Функция выводит список всех записей в таблице БД
 function show() 
 { 
@@ -45,13 +54,27 @@ function show()
   include_once '../templates/team_show.php';
 } 
 
-// Функция формирует форму для редактирования имени в таблице БД 
-function get_edit_name_form() 
+
+// Функция обновляет имя в таблице БД  
+function update_crew() 
 { 
-  $query = 'SELECT user_id, user_name, user_email FROM users WHERE user_id='.$_GET['id']; 
-  $res = mysql_query( $query ); 
-  $item = mysql_fetch_array( $res ); 
-  include_once '../templates/team_editname.php';
+  $name1 = mysql_escape_string( $_POST['name1'] );
+  $name2 = mysql_escape_string( $_POST['name2'] ); 
+  $name3 = mysql_escape_string( $_POST['name3'] ); 
+  $name4 = mysql_escape_string( $_POST['name4'] ); 
+  $name5 = mysql_escape_string( $_POST['name5'] ); 
+  
+  $fac1 = mysql_escape_string( $_POST['fac1'] );
+  $fac2 = mysql_escape_string( $_POST['fac2'] ); 
+  $fac3 = mysql_escape_string( $_POST['fac3'] ); 
+  $fac4 = mysql_escape_string( $_POST['fac4'] ); 
+  $fac5 = mysql_escape_string( $_POST['fac5'] ); 
+  
+  $query = "UPDATE users SET name1='".$name1."', name2='".$name2."',name3='".$name3."',name4='".$name4."',name5='".$name5."',
+							fac1='".$fac1."', fac2='".$fac2."',fac3='".$fac3."',fac4='".$fac4."',fac5='".$fac5."' WHERE user_id=".$_GET['id']; 
+  mysql_query ( $query ); 
+  header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
+  die();
 } 
 
 // Функция обновляет имя в таблице БД  
@@ -62,14 +85,8 @@ function update_name()
   $query = "UPDATE users SET user_name='".$name."', user_email='".$email."'
             WHERE user_id=".$_GET['id']; 
   mysql_query ( $query ); 
-  header( 'Location: /admin/team_edit.php?team=show&id='.$_GET['id'] );
+  header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
-} 
-
-// Функция формирует форму для редактирования пароля в таблице БД 
-function get_edit_pass_form() 
-{ 
-  include_once '../templates/team_changepassword.php';
 } 
 
 // Функция обновляет пароль в таблице БД  
@@ -79,17 +96,32 @@ function update_pass()
 	$upass = trim($upass);
   $query = "UPDATE users SET user_pass='".$upass."' WHERE user_id=".$_GET['id']; 
   mysql_query ( $query ); 
-  header( 'Location: /admin/team_edit.php?team=show&id='.$_GET['id'] );
+  header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
 }
 
-// Функция формирует форму для редактирования пароля в таблице БД 
-function get_edit_fine_form() 
+// Функция обновляет КП в таблице БД  
+function update_begin() 
 { 
-  include_once '../templates/team_addfine.php';
+	$num = mysql_escape_string( $_POST['num'] );
+	$query = "UPDATE race SET begin_id='".$num."' WHERE user_id=".$_GET['id']; 
+  mysql_query ( $query ); 
+  header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
+  die();
+}
+
+
+// Функция формирует форму настроек
+function get_edit_settings_form() 
+{ 
+	$query = 'SELECT * FROM users LEFT JOIN race ON users.user_id = race.user_id LEFT JOIN checkpoints ON race.actual_id = checkpoints.id WHERE users.user_id='.$_GET['id']; 
+	$res = mysql_query( $query ); 
+	$team = mysql_fetch_array($res);
+	include_once '../templates/team_settings.php';
 } 
 
-// Функция обновляет пароль в таблице БД  
+
+// Функция обновляет штрафы в таблице БД  
 function update_fine() 
 { 
 	$fine_id = mysql_escape_string( $_POST['id'] );
@@ -101,25 +133,11 @@ function update_fine()
   die();
 }
 
-// Функция формирует форму для редактирования КП 
-function get_edit_begin_form() 
+// Форма-Функция удаляет запись в таблице БД 
+function get_delete_form() 
 { 
-
-	 $query = 'SELECT user_id, begin_id FROM race WHERE user_id='.$_GET['id']; 
-	$res = mysql_query( $query ); 
-	$item = mysql_fetch_array( $res ); 
-	include_once '../templates/team_editbegin.php';
+	include_once '../templates/team_delete.php';
 } 
-
-// Функция обновляет КП в таблице БД  
-function update_begin() 
-{ 
-	$num = mysql_escape_string( $_POST['num'] );
-	$query = "UPDATE race SET begin_id='".$num."' WHERE user_id=".$_GET['id']; 
-  mysql_query ( $query ); 
-  header( 'Location: /admin/team_edit.php?team=show&id='.$_GET['id'] );
-  die();
-}
 
 // Функция удаляет запись в таблице БД 
 function delete_item() 
@@ -129,5 +147,10 @@ function delete_item()
   header( 'Location: /admin/teams.php' );
   die();
 } 
-  
+ // Функция формирует форму для редактирования пароля в таблице БД 
+function get_edit_fine_form() 
+{ 
+  include_once '../templates/team_addfine.php';
+} 
+ 	
 ?>

@@ -1,103 +1,205 @@
-<?php
+<?php 
 session_start();
+
+include '../php/config.inc.php';
+include_once '../php/header_logged.php';
 if(!isset($_SESSION['admin_id']))
 {
 	header("Location: /admin/index.php");
 }
-include_once '../scripts/header_logged.php';
-include '../config.inc.php';
-?>
+else {
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+ ?>
+
+<!DOCTYPE HTML>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	 <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-	<title><?php echo $PRETITLE; ?> &#9679; АДМИН-ЦЕНТР</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<meta name="description" content="..." />
-	<meta name="keywords" content="..." />
+<link rel="shortcut icon" href="../images/splash/favicon.ico" type="image/x-icon" /> 
+    
+<title><?php echo $PRETITLE; ?> | Добавление контрольного пикета</title>
 
-	<style type="text/css" media="all">
-		@import url("../css/style.css");
-		@import url("../css/nivo-slider.css");
-		@import url("../css/custom-nivo-slider.css");
-		@import url("../css/jquery.fancybox.css");
-	</style>
-	
+<link href="../styles/style.css"           rel="stylesheet" type="text/css">
+<link href="../styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="../styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="../styles/animate.css"         rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript" src="../scripts/jqueryui.js"></script>
+<script type="text/javascript" src="../scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="../scripts/custom.js"></script>
 </head>
 
-<body>
-	
-	<div id="bgc">
-							
-		<div class="wrapper">		<!-- wrapper begins -->
-			<div id="header">
-				<h1><a href="/"><span><?php echo $PRETITLE; ?></span></a></h1>
+<body class="left-sidebar"> 
+
+<?php include_once '../templates/preloader.php'; ?>
+    
+<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
+    
+<div id="header-fixed" class="header-style-1">
+    <a class="header-1 open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
+    <a class="header-logo" href="/index.php"><img src="../images/logo-dark2.png" alt="img"></a>
+</div>
+    
+            
+<div class="all-elements">
+    <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">        
+            <div class="sidebar-header-left">
+                <a href="/index.php"><img src="../images/logo-dark2.png" alt="img"></a>
+                <a class="close-sidebar" href="#"><i class="fa fa-times"></i></a>
+            </div>      
+        
+            <?php 
+			include_once '../templates/main_menu.php';
+            include_once '../templates/user_menu.php';
+			?>
+			
+			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
+			<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>
 				
-				<ul>
-					<li><a href="/">Главная</a></li>
-					<li><a href="/about.php" >О мероприятии</a></li>
-					<li><a href="/login.php"><font color='#f6cc36'><?php echo $menu_race; ?> </font></a></li>
-					<li><a href="/admin/logout.php?logout_admin" class="active"><font color='#009EE5'>ВЫЙТИ ИЗ АДМИН-ЦЕНТРА</font></a></li>
-				</ul>
-			</div>		<!-- #header ends -->
-			
-			
-			<div id="holder">
-				<div class="pagetitle">
-					<h2>АДМИН-ЦЕНТР</h2>
-					</br></br>
-					<ul id="nav3">
-					<li><a href="/admin/settings.php">Запуск гонки</a>
-					<li><a href="/admin/pickets.php" class="active">Пикеты</a>
-					<li><a href="/admin/table.php">Турнирная таблица</a>
-					<li><a href="/admin/teams.php">Команды</a>
-					<li><a href="/admin/register_team.php">Добавить команду</a>
-					<li><a href="/admin/register_admin.php">Добавить админа</a>
-					</ul>
-				</div>	
-		
-				<div id="content">
-					<div id="wide" align="center">
-					<h3>Добавление новой контрольной точки</h3>
-					<?php
-					  echo '<form name="addform" action="'.$_SERVER['PHP_SELF'].'?action=add" method="POST">'; 
-					  echo '<p><label># пункта</label><br />'; 
-					echo '<input type="text" class="text" name="num" value="'.$newid.'" /></p>'; 
-					  echo '<p><label>Наименование</label><br />'; 
-					  echo '<input type="text" class="text" name="name" value="" /></p>'; 
-					  echo '<p><label>Описание</label><br />'; 
-					  echo '<textarea name="text"></textarea></p>';  
-					  echo '<p><label>Код точки</label><br />'; 
-					  echo '<input type="text" class="text" name="code" value="" /></p>'; 
-					  echo '<p><input type="submit" class="submitblue" value="Сохранить"> '; 
-					  echo '<input type="submit" class="submit" onClick="history.back();" value="Отменить"></p>'; 
-					  echo '</form>'; 
-					?>
-
-					</div>		<!-- #wide ends -->
+				<div class="has-submenu">
+				<a class="menu-item show-submenu menu-item-active" href="#">
+                      <i class="fa fa-flag"></i>
+                    <em>Контрольные пикеты</em>
+					<strong>2</strong></a>
+					<div class="submenu submenu-active">
+                        <a class="submenu-item" href="/admin/pickets.php">    <i class="fa fa-angle-right"></i><em>  Просмотр всех КП   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item submenu-item-active " href="/admin/pickets.php?action=addform">        <i class="fa fa-angle-right"></i><em>  Добавление КП   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
 				
-				</div>		<!-- #content ends -->
-			</div>		<!-- #holder ends -->
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-trophy"></i>
+                    <em>Турнирная таблица</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/table.php">    <i class="fa fa-angle-right"></i><em> Малая таблица   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/leaderboard.php">        <i class="fa fa-angle-right"></i><em>  Расширенная таблица   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-users"></i>
+                    <em>Команды</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/teams.php">    <i class="fa fa-angle-right"></i><em>  Просмотр команд   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item" href="/admin/register_team.php">   <i class="fa fa-angle-right"></i><em>  Создать новую   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-user-secret"></i>
+                    <em>Администрация</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/admin_list.php">    <i class="fa fa-angle-right"></i><em> Список админов  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+								
+				<a class="menu-item" href="/admin/logout.php?logout_admin">
+                    <i class="fa fa-sign-out"></i>
+                    <em>Выйти из админ-центра</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+			</div>
+			
+			<?php 
+			include_once '../templates/sponsors.php'; ?>
+                       
+            <p class="sidebar-footer">Copyright 2015. Все права защищены</p>
+            
+        </div>
+                
+        
+        
+        <div id="content" class="snap-content">
+		<div class="content">
+            <div class="header-clear-large"></div>
+            <!--Page content goes here, fixed elements go above the all elements class-->  
+					<div class="container-fullscreen heading-style-3 bg-5">
+                    <h3 class="heading-title">Контрольные пикеты</h3>
+                    <em class="heading-subtitle">Создание и редактирование точек, изменение кодов</em>
+                    <div class="overlay bg-black"></div>
+                </div>
+				<div class="heading-style-1 container half-bottom">
+                    <a href="#"><i class="fa fa-flag"></i></a>
+                    <h4>Создание нового КП</h4>
+                    <div class="heading-block bg-red-dark"></div>
+                    <div class="heading-decoration bg-red-dark"></div>
+                </div>
+				 <div class="container">
+				 <div class="one-third-responsive full-bottom"></div>
+				 <div class="decoration hide-if-responsive"></div>
+				<div class="one-third-responsive full-bottom">
+			<?php
+					echo '<form name="addform" action="'.$_SERVER['PHP_SELF'].'?action=add" method="POST">'; 
+					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea"># пункта: <span>(обязательно)</span></label>';
+					echo '<input class="text-field green-field" name="num" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="'.$newid.'">';
+                    echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">Наименование: <span>(обязательно)</span></label>';
+					echo '<input class="text-field green-field" name="name" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="">';
+					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">Описание: <span>(обязательно)</span></label>';
+					echo '<textarea name="text" class="contactTextarea requiredField" id="contactMessageTextarea"></textarea>';
+					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">Код точки: <span>(обязательно)</span></label>';
+					echo '<input class="text-field green-field" name="code" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="">';
+					echo '<input type="submit" class="buttonWrap button button-orange contactSubmitButton" value="Сохранить"/>';
+					echo '<input type="submit" onClick="history.back();" class="buttonWrap button button-grey contactSubmitButton" id="contactSubmitButton" value="Отменить" data-formId="contactForm"/>';
+					echo '</form>'; 
+						?>
+						</div></div>
+
 			
 			
-			<?php include '../templates/footer.php' ?>
-		</div>		<!-- wrapper ends -->
-		
-	
-	</div>
-
-
-
-
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.easing.pack.js"></script>
-	<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
-	<script type="text/javascript" src="js/filter.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-	
-		
+            <!-- End of entire page content-->
+			</div>
+        </div>
+    </div>  
+    <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Наверх</a>
+</div>
+    
+ 
+    
 </body>
-</html>
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

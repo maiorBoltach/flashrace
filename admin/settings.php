@@ -1,14 +1,15 @@
-<?php
+<?php 
 session_start();
 
-include_once '../config.inc.php';
-include_once '../scripts/header_logged.php';
+include_once '../php/config.inc.php';
+include_once '../php/header_logged.php';
 if(!isset($_SESSION['admin_id']))
 {
 	header("Location: /admin/index.php");
 }
 else {
-	
+
+
 if(isset($_POST['start']))
 {
 	$query = mysql_query("UPDATE race SET status = -1");
@@ -39,7 +40,6 @@ if(isset($_POST['start_again']))
 		}	
 }
 
-
 if(isset($_POST['reset']))
 {
 	$query = mysql_query("UPDATE race  SET kol_left_id =0, actual_id =0, help_used =0, actual_help =0, begin =NULL, end  =NULL,
@@ -66,101 +66,220 @@ if(isset($_POST['reset']))
 		}	
 	 
 }
-}
-?>
+	if (isset($_GET['send']) && $_GET['send'] == 'success_reset') $message.= '<div class="static-notification bg-green-dark tap-dismiss"><p><i class="fa fa-times"></i>Статистика команд успешно сброшена.</p></div>';
+	else if (isset($_GET['send']) && $_GET['send'] == 'error_reset') $message.= '<div class="static-notification bg-red-dark tap-dismiss"><p><i class="fa fa-times"></i>ОШИБКА. Сбросить статистику команд не удалось. Попробуйте снова.</p></div>';
+	else if (isset($_GET['send']) && $_GET['send'] == 'success_start_again') $message.= '<div class="static-notification bg-green-dark tap-dismiss"><p><i class="fa fa-times"></i>Гонка успешно остановлена.</p></div>';
+	else if (isset($_GET['send']) && $_GET['send'] == 'error_start_again') $message.= '<div class="static-notification bg-red-dark tap-dismiss"><p><i class="fa fa-times"></i>ОШИБКА. Остановить гонку не получилось. Попробуйте снова.</p></div>';
+	else if (isset($_GET['send']) && $_GET['send'] == 'success_start') $message.= '<div class="static-notification bg-green-dark tap-dismiss"><p><i class="fa fa-times"></i>Гонка успешно стартовала. Удачи командам!</p></div>';
+	else if (isset($_GET['send']) && $_GET['send'] == 'error_start') $message.= '<div class="static-notification bg-red-dark tap-dismiss"><p><i class="fa fa-times"></i>ОШИБКА. Запустить гонку не получилось. Попробуйте снова.</p></div>';
+ ?>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-
+<!DOCTYPE HTML>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	 <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-	<title><?php echo $PRETITLE; ?> &#9679; АДМИН-ЦЕНТР</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<meta name="description" content="..." />
-	<meta name="keywords" content="..." />
+<link rel="shortcut icon" href="../images/splash/favicon.ico" type="image/x-icon" /> 
+    
+<title><?php echo $PRETITLE; ?> | Настройки гонки</title>
 
-	<style type="text/css" media="all">
-		@import url("../css/style.css");
-		@import url("../css/nivo-slider.css");
-		@import url("../css/custom-nivo-slider.css");
-		@import url("../css/jquery.fancybox.css");
-	</style>
-	
-	<link type="text/css" rel="stylesheet" media="all" href="../css/chat.css" />
-	<link type="text/css" rel="stylesheet" media="all" href="../css/screen.css" />
-	
-	
+<link href="../styles/style.css"           rel="stylesheet" type="text/css">
+<link href="../styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="../styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="../styles/animate.css"         rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../scripts/jquery.js"></script>
+<script type="text/javascript" src="../scripts/jqueryui.js"></script>
+<script type="text/javascript" src="../scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="../scripts/custom.js"></script>
 </head>
 
-<body>
-		
-	<div id="bgc">
-							
-		<div class="wrapper">		<!-- wrapper begins -->
-			<div id="header">
-				<h1><a href="/"><span><?php echo $PRETITLE; ?></span></a></h1>
+<body class="left-sidebar"> 
+
+<?php include_once '../templates/preloader.php'; ?>
+    
+<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
+    
+<div id="header-fixed" class="header-style-1">
+    <a class="header-1 open-left-sidebar" href="#"><i class="fa fa-navicon"></i></a>
+    <a class="header-logo" href="#"><img src="../images/logo-dark2.png" alt="img"></a>
+</div>
+    
+            
+<div class="all-elements">
+    <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">        
+            <div class="sidebar-header-left">
+                <a href="#"><img src="../images/logo-dark2.png" alt="img"></a>
+                <a class="close-sidebar" href="#"><i class="fa fa-times"></i></a>
+            </div>      
+        
+            <?php 
+			include_once '../templates/main_menu.php';
+            include_once '../templates/user_menu.php';
+			?>
+			
+			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
+				<a class="menu-item menu-item-active" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>
 				
-				<ul>
-					<li><a href="/">Главная</a></li>
-					<li><a href="/about.php" >О мероприятии</a></li>
-					<li><a href="/login.php"><font color='#f6cc36'><?php echo $menu_race; ?> </font></a></li>
-					<li><a href="/admin/logout.php?logout_admin" class="active"><font color='#009EE5'>ВЫЙТИ ИЗ АДМИН-ЦЕНТРА</font></a></li>
-				</ul>
-			</div>		<!-- #header ends -->
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-flag"></i>
+                    <em>Контрольные пикеты</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/pickets.php">    <i class="fa fa-angle-right"></i><em>  Просмотр всех КП   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/pickets.php?action=addform">        <i class="fa fa-angle-right"></i><em>  Добавление КП   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-trophy"></i>
+                    <em>Турнирная таблица</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/table.php">    <i class="fa fa-angle-right"></i><em> Малая таблица   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/leaderboard.php">        <i class="fa fa-angle-right"></i><em>  Расширенная таблица   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-users"></i>
+                    <em>Команды</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/teams.php">    <i class="fa fa-angle-right"></i><em>  Просмотр команд   </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item" href="/admin/register_team.php">   <i class="fa fa-angle-right"></i><em>  Создать новую   </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+				
+				<div class="has-submenu">
+				<a class="menu-item show-submenu" href="#">
+                      <i class="fa fa-user-secret"></i>
+                    <em>Администрация</em>
+					<strong>2</strong></a>
+					<div class="submenu">
+                        <a class="submenu-item" href="/admin/admin_list.php">    <i class="fa fa-angle-right"></i><em> Список админов  </em><i class="fa fa-circle"></i></a>
+                        <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
+                    </div>
+                </div>
+								
+				<a class="menu-item" href="/admin/logout.php?logout_admin">
+                    <i class="fa fa-sign-out"></i>
+                    <em>Выйти из админ-центра</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+			</div>
 			
-			
-			<div id="holder">
-				<div class="pagetitle">
-					<h2>АДМИН-ЦЕНТР</h2>
-					</br></br>
-					<ul id="nav3">
-					<li><a href="/admin/settings.php" class="active">Запуск гонки</a>
-					<li><a href="/admin/pickets.php">Пикеты</a>
-					<li><a href="/admin/table.php">Турнирная таблица</a>
-					<li><a href="/admin/teams.php">Команды</a>
-					<li><a href="/admin/register_team.php">Добавить команду</a>
-					<li><a href="/admin/register_admin.php">Добавить админа</a>
-					</ul>
-				</div>	
-		
-				<div id="content">
-					<div id="wide" align="center">
+			<?php 
+			include_once '../templates/sponsors.php'; ?>
+                       
+            <p class="sidebar-footer">Copyright 2015. Все права защищены</p>
+            
+        </div>
+                
+        
+        
+        <div id="content" class="snap-content">
+		<div class="content">
+            <div class="header-clear-large"></div>
+            <!--Page content goes here, fixed elements go above the all elements class-->  
+					<div class="container-fullscreen heading-style-3 bg-5">
+                    <h3 class="heading-title">Настройки гонки</h3>
+                    <em class="heading-subtitle">Старт, окончание, удаление статистики</em>
+                    <div class="overlay bg-black"></div>
+                </div>
+					<div class="container" align="center">
+						<?php echo $message; ?>
 						<form action="" method="post">
-							<p><input type="submit" class="submitblue"  value="УДАЛИТЬ ВСЮ СТАТИСТИКУ ПРОХОЖДЕНИЙ" name = "reset"/</p>
-					<form action="" method="post"> <?php
+							<input type="submit" class="button button-red"  value="УДАЛИТЬ ВСЮ СТАТИСТИКУ" name = "reset" />
+							</form>
+						<form action="" method="post"> <?php
 							$query2 = mysql_query("SELECT status FROM race WHERE user_id=1");
 							$res = mysql_fetch_assoc($query2);
-							if($res['status'] == NULL) echo "<p><input type=\"submit\" class=\"submitblue\"  value=\"ЗАПУСТИТЬ ГОНКУ\" name = \"start\"/</p>";
-							else if($res['status'] == -1 || $res['status'] == 1 || $res['status'] == 0) { echo "<p><input type=\"submit\" class=\"submitblue\"  value=\"ОТКАТИТЬ ГОНКУ НА СТАРТ\" name = \"start_again\"/</p>";
-							echo "<h3><p> Гонка в процессе или завершена</p></h3>"; }
+							if($res['status'] == NULL) echo "<input type=\"submit\" class=\"button button-green\"  value=\"ЗАПУСТИТЬ ГОНКУ\" name = \"start\"/>";
+							else if($res['status'] != NULL) { echo "<input type=\"submit\" class=\"button button-red\"  value=\"ОТКАТИТЬ ГОНКУ НА СТАРТ\" name = \"start_again\"/>"; }
 							?>
 					</form>
-							
-					</form>
-					</div>		<!-- #wide ends -->
+					</div>
+					
+					
+			<div class="one-half-responsive">
+			<div class="container">
+				<h3>Текущие ошибки (необходимо пофиксить) и влажные мечты</h3>
+				<ul>
+				<li><strike>Пофиксить несдвигаемые таблицы в мобильных браузерах</strike></li>
+				<li><strike>Удаление КП</strike></li>
+				<li><strike>В командной статитике исправить время текущего КП</strike></li>
+				<li>Итоговая таблица для участников (отсутствует)</li>
+				<li>Чат между админом и участником (доделать связь админ - участник)</li>
+				<li><strike>Вкладка настроек (не работают кнопки начала гонки, сброса статистики участников)</strike></li>
+				<li><strike>Редактирование ФИО и факультетов участников</strike></li>
+				<li><strike><strong>Переделать способ аутентификации</strong></strike></li>
+				<li>Добавить всплывающие уведомления в турнирной таблице у админов</li>
+				<li>Пофиксить автообновение большой таблицы результатов каждые 10 секунд</li>
+				<li>Переделать определение часового пояса БД и пользователя</li>
+				</ul>
+				</div>
+			
+			</div>
 				
-				</div>		<!-- #content ends -->
-			</div>		<!-- #holder ends -->
+			  <div class="decoration hide-if-responsive"></div>
+			 <div class="one-half-responsive last-column">
+                    <div class="responsive-video full-bottom">
+					<iframe src="//coub.com/embed/6o5z9?muted=true&autostart=false&originalSize=false&startWithHD=false" allowfullscreen="true" frameborder="0" width="480" height="270"></iframe><script async src="//c-cdn.coub.com/embed-runner.js"></script>
+                   <!--     <iframe src="https://www.youtube.com/embed/gJscrxxl_Bg"></iframe> -->
+                    </div> 
+                </div>
 			
 			
-			<?php include '../templates/footer.php' ?>
-		</div>		<!-- wrapper ends -->
-		
-	
-	</div>
-
-
-	<script type="text/javascript" src="../js/jquery.js"></script>
-	<script type="text/javascript" src="js/jquery.nivo.slider.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
-	<script type="text/javascript" src="js/jquery.easing.pack.js"></script>
-	<script type="text/javascript" src="js/DD_belatedPNG.js"></script>
-	<script type="text/javascript" src="js/filter.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
-	
-		
+			
+            <!-- End of entire page content-->
+			</div>
+        </div>
+    </div>  
+    <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Наверх</a>
+</div>
+    
+ 
+    
 </body>
-</html>
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
