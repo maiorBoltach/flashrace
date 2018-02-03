@@ -12,7 +12,7 @@ include_once '../php/admin_login_script.php';
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-<link rel="shortcut icon" href="./images/splash/favicon.ico" type="image/x-icon" /> 
+<link rel="shortcut icon" href="../images/splash/favicon.ico" type="image/x-icon" /> 
     
 <title><?php echo $PRETITLE; ?> | Авторизация в админ-центр</title>
 

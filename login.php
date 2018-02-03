@@ -1,7 +1,7 @@
 <?php 
-include_once '/php/config.inc.php';
-include_once '/php/login_script.php';
-include_once '/php/header_logged.php';
+include_once 'php/config.inc.php';
+include_once 'php/login_script.php';
+include_once 'php/header_logged.php';
  ?>
 
 <!DOCTYPE HTML>
@@ -28,7 +28,7 @@ include_once '/php/header_logged.php';
 
 <body class="left-sidebar"> 
 
-<?php include_once '/templates/preloader.php'; ?>
+<?php include_once 'templates/preloader.php'; ?>
     
 <div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
     

@@ -28,13 +28,14 @@ switch ( $_GET["team"] )
 		get_edit_fine_form(); break; 
 	case "update_fine":      // Обновить штрафа в таблице БД
 		update_fine(); break; 
+	case "update_fine_finish":      // Обновить штрафа в таблице БД
+		update_fine_finish(); break; 
 	case "delete":      // Форма для удаления
 		get_delete_form(); break;
 	case "delete_team":      // Удалить запись в таблице БД
 		delete_item(); break;
 }
 }
-
 // Функция выводит список всех записей в таблице БД
 function crew() 
 { 
@@ -43,8 +44,6 @@ function crew()
   $team = mysql_fetch_array($res);
   include_once '../templates/team_crew.php';
 } 
-
-
 // Функция выводит список всех записей в таблице БД
 function show() 
 { 
@@ -53,8 +52,6 @@ function show()
   $team = mysql_fetch_array($res);
   include_once '../templates/team_show.php';
 } 
-
-
 // Функция обновляет имя в таблице БД  
 function update_crew() 
 { 
@@ -76,7 +73,6 @@ function update_crew()
   header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
 } 
-
 // Функция обновляет имя в таблице БД  
 function update_name() 
 { 
@@ -88,7 +84,6 @@ function update_name()
   header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
 } 
-
 // Функция обновляет пароль в таблице БД  
 function update_pass() 
 { 
@@ -99,7 +94,6 @@ function update_pass()
   header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
 }
-
 // Функция обновляет КП в таблице БД  
 function update_begin() 
 { 
@@ -109,8 +103,6 @@ function update_begin()
   header( 'Location: /admin/team_edit.php?team=settings&id='.$_GET['id'] );
   die();
 }
-
-
 // Функция формирует форму настроек
 function get_edit_settings_form() 
 { 
@@ -119,26 +111,33 @@ function get_edit_settings_form()
 	$team = mysql_fetch_array($res);
 	include_once '../templates/team_settings.php';
 } 
-
-
 // Функция обновляет штрафы в таблице БД  
 function update_fine() 
 { 
-	$fine_id = mysql_escape_string( $_POST['id'] );
 	$time = mysql_escape_string( $_POST['time']);
 	$bonus = mysql_escape_string( $_POST['bonus']);
+	//$fine_id = mysql_escape_string( $_POST['id']);
+	$fine_id = intval($_POST['id']);
   $query = "UPDATE race SET fine".$fine_id."=SEC_TO_TIME('".$time."'), bonus".$fine_id."=SEC_TO_TIME('".$bonus."') WHERE user_id=".$_GET['id']; 
   mysql_query ( $query ); 
   header( 'Location: /admin/team_edit.php?team=show&id='.$_GET['id'] );
   die();
 }
 
+function update_fine_finish() 
+{ 
+	$time = mysql_escape_string( $_POST['time_fin']);
+	$bonus = mysql_escape_string( $_POST['bonus_fin']);
+  $query = "UPDATE race SET fine_fin=SEC_TO_TIME('".$time."'), bonus_fin=SEC_TO_TIME('".$bonus."') WHERE user_id=".$_GET['id']; 
+  mysql_query ( $query ); 
+  header( 'Location: /admin/team_edit.php?team=show&id='.$_GET['id'] );
+  die();
+}
 // Форма-Функция удаляет запись в таблице БД 
 function get_delete_form() 
 { 
 	include_once '../templates/team_delete.php';
 } 
-
 // Функция удаляет запись в таблице БД 
 function delete_item() 
 { 

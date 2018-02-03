@@ -1,17 +1,9 @@
-
-<script>	
-// для сортировки
-	$(document).ready(function() 
-    { 
-        $("#myTable").tablesorter(sortList: [[4,0],[7,0]] ); 
-    } 
-); 
-</script>  
 <?php
+
 				include_once '../php/config.inc.php';
 				$res = mysql_query("SELECT * FROM users LEFT JOIN race ON users.user_id = race.user_id LEFT JOIN checkpoints ON race.actual_id = checkpoints.id ORDER BY kol_left_id DESC"); 
 				echo '<div id="content-1"><table id="myTable" cellspacing=\'0\' class="table tablesorter"><thead>';
-				echo '<tr><th class="table-title">Команда</th><th class="table-title">Начало<br>гонки</th><th class="table-title">Конец<br>гонки</th><th class="table-title">Актуальный<br>КП</th>
+				echo '<tr><th class="table-title">ID</th><th class="table-title">Команда</th><th class="table-title">Начало<br>гонки</th><th class="table-title">Конец<br>гонки</th><th class="table-title">Актуальный<br>КП</th>
 				<th class="table-title">Пройденное<br>кол-во КП</th><th class="table-title">Штраф</th><th class="table-title">Бонус</th><th class="table-title">Итоговое<br>время</th><tr></thead><tbody>';
 					
 					while ( $team = mysql_fetch_array( $res ) ) 
@@ -27,7 +19,7 @@
 					$res1 = mysql_query("SELECT MAX(id) AS id FROM checkpoints"); 
 					$item = mysql_fetch_assoc( $res1 );
 					
-					$fine_all = date("00:00:00");
+					$fine_all = $team['fine_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['fine'.$i] != NULL)
@@ -40,7 +32,7 @@
 					}	
 					
 					// и бонусных
-					$bonus_all = date("00:00:00");
+					$bonus_all = $team['bonus_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['bonus'.$i] != NULL)
@@ -68,6 +60,7 @@
 					$interval = $begin->diff($date);
 				
 						echo '<tr>'; 
+						echo '<th class="n">'.$team['user_id'].'</th>'; 
 						echo '<th class="n"><a href="/admin/team_edit.php?team=show&id='.$team['user_id'].'" class="active">'.$team['user_name'].'</a></th><td>'; 
 						if($team['begin'] == NULL ) echo '-';
 						else echo $begin->format('d-m-Y H:i:s');
@@ -80,7 +73,8 @@
 						echo '<td>'.$team['kol_left_id'].' / '.$item[id].'</td>';
 						echo '<td><font color="red">'.$fine_all.'</font></td>'; 
 						echo '<td><font color="green">'.$bonus_all.'</font></td>';
-						echo '<td>'.$interval->format('%H:%I:%S').'</td>'; 
+						if($team['end'] == NULL ) echo '<td>-</td>';
+						else echo '<td>'.$interval->format('%H:%I:%S').'</td>'; 
 						echo '</tr>'; 
 					} 
 					echo '</tbody></table></div>';

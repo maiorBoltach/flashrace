@@ -15,7 +15,7 @@ echo '<div id="content-1"><table cellspacing=\'0\' class="table"><thead><tr><th 
 					$res = mysql_query("SELECT MAX(id) AS id FROM checkpoints"); 
 					$item = mysql_fetch_assoc( $res );
 					
-					$fine_all = date("00:00:00");
+					$fine_all = $team['fine_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['fine'.$i] != NULL)
@@ -28,7 +28,7 @@ echo '<div id="content-1"><table cellspacing=\'0\' class="table"><thead><tr><th 
 					}	
 					
 					// и бонусных
-					$bonus_all = date("00:00:00");
+					$bonus_all = $team['bonus_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['bonus'.$i] != NULL)
@@ -69,6 +69,13 @@ echo '<div id="content-1"><table cellspacing=\'0\' class="table"><thead><tr><th 
 					echo '</td><td><font color="red">'.$fine_all.'</font></td>';
 					if($team['end'] == NULL ) echo '<td>-</td><tr>';
 						else echo '<td>'.$interval->format('%H:%I:%S').'</td><tr>'; ?>
+					</tbody></table></div>
+					
+					<br>
+					<div id="content-3"><table cellspacing='0' class="table"><thead>
+					<tr><th colspan="2" class="table-title">Дополнительные штрафы и бонусы</th></thead><tbody>
+					<tr><td>Бонус за решение дополнительных задач (при финише до 18:00)</td><td><font color="green"><?php echo $team['bonus_fin']; ?></font></td></tr>
+					<tr><td>Штраф за финиш после 18:00 (каждая секунда после 18:00 - 1 секунда штрафа)</td><td><font color="red"><?php echo $team['fine_fin']; ?></font></td></tr>
 					</tbody></table></div>
 					
 					<div id="content-2"><table cellspacing='0' class="table"><thead>

@@ -59,12 +59,14 @@ else {
 			?>
 			
 			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
-				<a class="menu-item" href="/admin/settings.php">
-                    <i class="fa fa-tachometer"></i>
-                    <em>Настройки</em>
+				
+			<a class="menu-item" href="/admin/main.php">
+                    <i class="fa fa-exclamation"></i>
+                    <em>F.A.Q.</em>
                     <i class="fa fa-circle"></i>
                 </a>
 				
+								
 				<div class="has-submenu">
 				<a class="menu-item show-submenu" href="#">
                       <i class="fa fa-flag"></i>
@@ -109,7 +111,14 @@ else {
                         <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
                     </div>
                 </div>
-								
+				
+
+				<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				
 				<a class="menu-item" href="/admin/logout.php?logout_admin">
                     <i class="fa fa-sign-out"></i>
                     <em>Выйти из админ-центра</em>

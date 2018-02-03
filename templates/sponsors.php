@@ -17,5 +17,9 @@
                 <a class="menu-item" href="http://turlan.by/">
                     <i class="fa fa-tree"></i>
                     <em>Турснаряжение "Турлан"</em>
-                </a>    
+                </a> 
+				<a class="menu-item" href="http://vk.com/public100905672">
+                    <i class="fa fa-glass"></i>
+                    <em>Бар "YOGURTY"</em>
+                </a>				
             </div>

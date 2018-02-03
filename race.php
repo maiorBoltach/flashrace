@@ -1,13 +1,13 @@
 <?php session_start();
-include_once '/php/config.inc.php';
-include_once '/php/header_logged.php';
+include_once 'php/config.inc.php';
+include_once 'php/header_logged.php';
 if(!isset($_SESSION['user']))
 {
 	header("Location: login.php");
 }
 else
 {
-	include_once '/php/race_script.php';
+	include_once 'php/race_script.php';
 ?>
 
 <!DOCTYPE HTML>
@@ -34,7 +34,7 @@ else
 
 <body class="left-sidebar"> 
 
-<?php include_once '/templates/preloader.php'; ?>
+<?php include_once 'templates/preloader.php'; ?>
     
 <div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
     
@@ -66,14 +66,14 @@ else
                     <em>Текущее задание</em>
                     <i class="fa fa-circle"></i>
                 </a>
-				<a class="menu-item" href="/chat.php">
-                    <i class="fa fa-comment-o"></i>
-                    <em>Чат с организаторами</em>
-                    <i class="fa fa-circle"></i>
-                </a>
 				<a class="menu-item" href="/team_stats.php">
                     <i class="fa fa-file-o"></i>
                     <em>Статистика команды</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/contact.php">
+                    <i class="fa fa-comment-o"></i>
+                    <em>Связаться с админами</em>
                     <i class="fa fa-circle"></i>
                 </a>
 				<a class="menu-item" href="/logout.php?logout">
@@ -136,7 +136,7 @@ else
 									<i class=\"fa fa-quote-left\"></i>
 									<p>".$userRow['text']."</p></div>";
 							echo '<div class="one-third-responsive full-bottom"></div>';
-							echo '<div class="decoration hide-if-responsive"></div><div class="one-third-responsive full-bottom"><form id="sum" method="POST"  action="">';
+							echo '<div class="decoration hide-if-responsive"></div><div class="one-third-responsive full-bottom">'.$message.'<form id="sum" method="POST"  action="">';
 							echo "<input class=\"text-field green-field\" onfocus=\"if (this.value=='Код') this.value = ''\" onblur=\"if (this.value=='') this.value = 'Код'\" type=\"text\" name = \"code_answer\" value=\"Код\">
 								<input type=\"submit\" class=\"buttonWrap button button-orange contactSubmitButton\" value=\"Внести код\" name=\"answer_button\"/>
 							</form></div>  ";
@@ -165,7 +165,7 @@ else
 </body>
 
 
-<?
+<?php 
 }
 ?>
 

@@ -6,7 +6,7 @@ $DBLOGIN = 'root';
 $DBPASSWORD = '12345';
 $DOMAIN = 'localhost';
 
-$database = new DateTimeZone("Europe/Minsk"); // часовой пояс сервера базы данных
+$database = new DateTimeZone("UTC"); // часовой пояс сервера базы данных
 $client = new DateTimeZone("Europe/Minsk"); // часовой пояс клиентов
 					
 

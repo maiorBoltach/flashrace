@@ -3,7 +3,7 @@ session_start();
 
 if(isset($_SESSION['admin_id'])!="")
 {
-	header("Location: settings.php");
+	header("Location: main.php");
 }
 
 if(isset($_POST['btn-login-admin']))
@@ -22,7 +22,7 @@ if(isset($_POST['btn-login-admin']))
 	if($count == 1 && $row['admin_pass']==md5($upass))
 	{
 		$_SESSION['admin_id'] = $row['admin_id'];
-		header("Location: settings.php");
+		header("Location: main.php");
 	}
 	else
 	{

@@ -4,7 +4,7 @@ $userRow=mysql_fetch_array($res);
 
 if (isset($_POST['begin_button'])) {
 							$begin = $userRow['begin_id'];
-							mysql_query("UPDATE race SET status=0, begin_id=$begin, actual_id = $begin, begin=now() WHERE user_id =".$_SESSION['user']);
+							mysql_query("UPDATE race SET status=0, begin_id='".$begin."', actual_id = '".$begin."', begin=now() WHERE user_id =".$_SESSION['user']);
 							header('Location: ' . $_SERVER['REQUEST_URI']);
 							die();
 							}
@@ -27,16 +27,17 @@ if (isset($_POST['answer_button'])) {
 		$kol = $userRow['kol_left_id'];
 		$kol+=1;
 		
-		if($kol == $max) mysql_query("UPDATE race SET kol_left_id=$kol, actual_id = $actual_id, end=now(), status = 1 WHERE user_id =".$_SESSION['user']);
-		else mysql_query("UPDATE race SET kol_left_id=$kol, actual_id = $actual_id WHERE user_id =".$_SESSION['user']);
-		header('Location: ' . $_SERVER['REQUEST_URI']);
+		if($kol == $max) mysql_query("UPDATE race SET kol_left_id='".$kol."', actual_id = '".$actual_id."', end=now(), status = 1 WHERE user_id =".$_SESSION['user']);
+		else mysql_query("UPDATE race SET kol_left_id='".$kol."', actual_id = '".$actual_id."' WHERE user_id =".$_SESSION['user']);
+		header('Location: race.php');
 		die();
 	}
 	else
 	{
-		?>
-        <script>alert('Код введён неправильно. Попробуйте снова.');</script>
-        <?php
+		header('Location: race.php?send=error');
+		die;
 	}
 }
+if (isset($_GET['send']) && $_GET['send'] == 'error') $message.= '<div class="static-notification bg-red-dark tap-dismiss"><p><i class="fa fa-times"></i>Неправильный код!</p></div>';
+
 ?>

@@ -18,7 +18,7 @@ else {
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-<link rel="shortcut icon" href="./images/splash/favicon.ico" type="image/x-icon" /> 
+<link rel="shortcut icon" href="../images/splash/favicon.ico" type="image/x-icon" /> 
     
 <title><?php echo $PRETITLE; ?> | Малая таблица результатов</title>
 
@@ -32,21 +32,14 @@ else {
 <script type="text/javascript" src="../scripts/framework-plugins.js"></script>
 <script type="text/javascript" src="../scripts/custom.js"></script>
 <script type="text/javascript" src="../scripts/jquery.tablesorter.js"></script> 
-
-
-
-<script>
-// скрипт обновления блока
-	 $(document).ready(function() {
-		 $("#responsecontainer").load("../php/leaderboard_small.php");
-	   var refreshId = setInterval(function() {
-		  $("#responsecontainer").load('../php/leaderboard_small.php');
-	   }, 9000);
-	   $.ajaxSetup({ cache: false });
-	});
-	</script>
-	
-	
+<script>	
+// для сортировки
+	$(document).ready(function() 
+    { 
+        $("#myTable").tablesorter(); 
+    } 
+); 
+</script>  
 </head>
 
 <body class="left-sidebar"> 
@@ -76,11 +69,13 @@ else {
 			
 			
 			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
-			<a class="menu-item" href="/admin/settings.php">
-                    <i class="fa fa-tachometer"></i>
-                    <em>Настройки</em>
+			
+			<a class="menu-item" href="/admin/main.php">
+                    <i class="fa fa-exclamation"></i>
+                    <em>F.A.Q.</em>
                     <i class="fa fa-circle"></i>
                 </a>
+			
 				
 				<div class="has-submenu">
 				<a class="menu-item show-submenu" href="#">
@@ -126,7 +121,13 @@ else {
                         <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
                     </div>
                 </div>
-								
+					
+				<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				
 				<a class="menu-item" href="/admin/logout.php?logout_admin">
                     <i class="fa fa-sign-out"></i>
                     <em>Выйти из админ-центра</em>
@@ -158,11 +159,7 @@ else {
                     <div class="heading-block bg-red-dark"></div>
                     <div class="heading-decoration bg-red-dark"></div>
                 </div>
-			
-				<div id ="responsecontainer"></div>
-				<div class="container">
-                    <p><center>Примеч.: таблица обновляется каждые 5 секунд</center></p></div>
-		 <!-- End of entire page content-->
+				<?php include_once "../php/leaderboard_small.php"; ?>
 			</div>
         </div>
     </div>  

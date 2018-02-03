@@ -7,7 +7,7 @@ if(!isset($_SESSION['admin_id']))
 }
 else if(isset($_SESSION['admin_id'])!="")
 {
-	header("Location: settings.php");
+	header("Location: main.php");
 }
 
 if(isset($_GET['logout_admin']))

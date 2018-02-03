@@ -59,9 +59,9 @@ else {
 			?>
 			
 			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
-				<a class="menu-item" href="/admin/settings.php">
-                    <i class="fa fa-tachometer"></i>
-                    <em>Настройки</em>
+				<a class="menu-item" href="/admin/main.php">
+                    <i class="fa fa-exclamation"></i>
+                    <em>F.A.Q.</em>
                     <i class="fa fa-circle"></i>
                 </a>
 				
@@ -110,7 +110,6 @@ else {
                         <a class="submenu-item" href="/admin/team_edit.php?team=show&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Статистика команды  </em><i class="fa fa-circle"></i></a>
                         <a class="submenu-item  submenu-item-active" href="/admin/team_edit.php?team=fine&id='.$_GET['id'].'">        <i class="fa fa-angle-right"></i><em>  Бонусы и штрафы   </em><i class="fa fa-circle"></i></a>
 						<a class="submenu-item" href="/admin/team_edit.php?team=settings&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Настройки команды  </em><i class="fa fa-circle"></i></a>
-                        <a class="submenu-item" href="#">    <i class="fa fa-angle-right"></i><em>  Чат с командой  </em><i class="fa fa-circle"></i></a>
                         <a class="submenu-item" href="/admin/team_edit.php?team=delete&id='.$_GET['id'].'">    <i class="fa fa-angle-right"></i><em>  Удалить команду  </em><i class="fa fa-circle"></i></a>';
 						?>
                     </div>
@@ -126,7 +125,11 @@ else {
                         <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
                     </div>
                 </div>
-								
+				<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>				
 				<a class="menu-item" href="/admin/logout.php?logout_admin">
                     <i class="fa fa-sign-out"></i>
                     <em>Выйти из админ-центра</em>
@@ -156,11 +159,21 @@ else {
                     <div class="heading-decoration bg-red-dark"></div>
                 </div>
 				 <div class="container">
+				 <ul class="tabs">
+					<center>
+                        <li class="tab-link active-tab" data-tab="tab-1">Штрафы и бонусы на КП</li>
+                        <li class="tab-link" data-tab="tab-2">Штрафы и бонусы на финише</li>
+						</center>
+                    </ul>
+				 
+				 
+				<div id="tab-1" class="tab-content active-tab-content">
+ 				 <div class="container">
 				 <div class="one-third-responsive full-bottom"></div>
 				 <div class="decoration hide-if-responsive"></div>
 				<div class="one-third-responsive full-bottom">
 			<?php
-					echo '<form name="fine" action="'.$_SERVER['PHP_SELF'].'?team=update_fine&id='.$_GET['id'].'" method="POST">'; 
+					echo '<form name="update_fine" action="'.$_SERVER['PHP_SELF'].'?team=update_fine&id='.$_GET['id'].'" method="POST">'; 
 					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">ID контрольного пикета: <span>(обязательно)</span></label>';
 					echo '<input class="text-field green-field" name="id" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="1">';
 					
@@ -174,8 +187,33 @@ else {
 					echo '<input type="submit" onClick="history.back();" class="buttonWrap button button-grey contactSubmitButton" id="contactSubmitButton" value="Отменить" data-formId="contactForm"/>';
 					echo '</form>'; 
 						?>
-						</div></div>
-
+						</div>
+						</div>
+					</div>
+					
+                    <div id="tab-2" class="tab-content">
+						
+						<div class="container">
+				 <div class="one-third-responsive full-bottom"></div>
+				 <div class="decoration hide-if-responsive"></div>
+				<div class="one-third-responsive full-bottom">
+				<?php
+					echo '<form name="update_fine_finish" action="'.$_SERVER['PHP_SELF'].'?team=update_fine_finish&id='.$_GET['id'].'" method="POST">'; 
+					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">Дополнительный штраф (в секундах):</label>';
+					echo '<input class="text-field green-field" name="time_fin" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="">';
+										
+					echo '<label class="field-title contactMessageTextarea" for="contactMessageTextarea">Дополнительный бонус (в секундах):</label>';
+					echo '<input class="text-field green-field" name="bonus_fin" onfocus="if (this.value==\'\') this.value = \'\'" onblur="if (this.value==\'\') this.value = \'\'" type="text"  value="">';
+					
+					echo '<input type="submit" class="buttonWrap button button-orange contactSubmitButton" value="Сохранить"/>';
+					echo '<input type="submit" onClick="history.back();" class="buttonWrap button button-grey contactSubmitButton" id="contactSubmitButton" value="Отменить" data-formId="contactForm"/>';
+					echo '</form>'; 
+						?>
+				
+				</div>
+						</div>
+						</div>
+				</div>
 			
 			
             <!-- End of entire page content-->

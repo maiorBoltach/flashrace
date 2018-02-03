@@ -1,6 +1,6 @@
 <?php session_start();
-include_once '/php/config.inc.php';
-include_once '/php/header_logged.php';
+include_once 'php/config.inc.php';
+include_once 'php/header_logged.php';
 if(!isset($_SESSION['user']))
 {
 	header("Location: login.php");
@@ -36,7 +36,7 @@ else
 
 <body class="left-sidebar"> 
 
-<?php include_once '/templates/preloader.php'; ?>
+<?php include_once 'templates/preloader.php'; ?>
     
 <div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
     
@@ -70,14 +70,14 @@ else
                     <em>Текущее задание</em>
                     <i class="fa fa-circle"></i>
                 </a>
-				<a class="menu-item" href="/chat.php">
-                    <i class="fa fa-comment-o"></i>
-                    <em>Чат с организаторами</em>
-                    <i class="fa fa-circle"></i>
-                </a>
 				<a class="menu-item menu-item-active" href="/team_stats.php">
                     <i class="fa fa-file-o"></i>
                     <em>Статистика команды</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/contact.php">
+                    <i class="fa fa-comment-o"></i>
+                    <em>Связаться с админами</em>
                     <i class="fa fa-circle"></i>
                 </a>
 				<a class="menu-item" href="/logout.php?logout">
@@ -122,7 +122,7 @@ else
                 </div>
                 <div class="container">
 					<?php 
-					if($team['status']==1) include_once '/php/team_stats_script.php';
+					if($team['status']==1) include_once 'php/team_stats_script.php';
 					else echo '<center><h3>Итоговая статистика команды пока недоступна.</h3><br>Для её просмотра вы должны окончить гонку.</center>';
 					?>			
 				</div>
@@ -160,7 +160,7 @@ else
 </body>
 
 
-<?
+<?php 
 }
 ?>
 

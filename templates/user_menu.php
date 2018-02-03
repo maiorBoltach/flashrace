@@ -13,14 +13,14 @@ echo '<p class="sidebar-divider">Гонка</p><div class="sidebar-menu">';
                     <em>Текущее задание</em>
                     <i class="fa fa-circle"></i>
                 </a>
-				<a class="menu-item" href="/chat.php">
-                    <i class="fa fa-comment-o"></i>
-                    <em>Чат с организаторами</em>
-                    <i class="fa fa-circle"></i>
-                </a>
 				<a class="menu-item" href="/team_stats.php">
                     <i class="fa fa-file-o"></i>
                     <em>Статистика команды</em>
+                    <i class="fa fa-circle"></i>
+                </a>
+				<a class="menu-item" href="/contact.php">
+                    <i class="fa fa-comment-o"></i>
+                    <em>Связаться с админами</em>
                     <i class="fa fa-circle"></i>
                 </a>
 				<a class="menu-item" href="/logout.php?logout">

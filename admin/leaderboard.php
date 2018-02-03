@@ -33,17 +33,6 @@ else {
 <script type="text/javascript" src="../scripts/custom.js"></script>
 <script type="text/javascript" src="../scripts/jquery.tablesorter.js"></script> 
 
-<script>
-// скрипт обновления блока
-	 $(document).ready(function() {
-		 $("#responsecontainer").load("../php/leaderboard.php");
-	   var refreshId = setInterval(function() {
-		  $("#responsecontainer").load('../php/leaderboard.php');
-	   }, 9000);
-	   $.ajaxSetup({ cache: false });
-	});
-	</script>
-	
 <script>	
 // для сортировки
 	$(document).ready(function() 
@@ -81,12 +70,12 @@ else {
 			
 			
 			<p class="sidebar-divider">Админ-панель</p><div class="sidebar-menu">
-			<a class="menu-item" href="/admin/settings.php">
-                    <i class="fa fa-tachometer"></i>
-                    <em>Настройки</em>
+			
+				<a class="menu-item" href="/admin/main.php">
+                    <i class="fa fa-exclamation"></i>
+                    <em>F.A.Q.</em>
                     <i class="fa fa-circle"></i>
                 </a>
-				
 				<div class="has-submenu">
 				<a class="menu-item show-submenu" href="#">
                       <i class="fa fa-flag"></i>
@@ -131,7 +120,11 @@ else {
                         <a class="submenu-item " href="/admin/register_admin.php">        <i class="fa fa-angle-right"></i><em>  Добавить админа  </em><i class="fa fa-circle"></i></a>
                     </div>
                 </div>
-								
+				<a class="menu-item" href="/admin/settings.php">
+                    <i class="fa fa-tachometer"></i>
+                    <em>Настройки</em>
+                    <i class="fa fa-circle"></i>
+                </a>				
 				<a class="menu-item" href="/admin/logout.php?logout_admin">
                     <i class="fa fa-sign-out"></i>
                     <em>Выйти из админ-центра</em>
@@ -166,7 +159,7 @@ else {
 			<div id="content-1">
 			<?php 
 				echo '<table id="myTable" cellspacing=\'0\' class="table tablesorter">';
-				echo '<thead><tr><th class="table-title">Команда</th><th class="table-title">Количество<br>пройд. КП</th><th class="table-title">Начало гонки</th>';
+				echo '<thead><tr><th class="table-title">ID</th><th class="table-title">Команда</th><th class="table-title">Количество<br>пройд. КП</th><th class="table-title">Начало гонки</th>';
 								
 				$res2 = mysql_query("SELECT * FROM checkpoints"); 
 				while($pickets = mysql_fetch_array($res2))
@@ -174,7 +167,7 @@ else {
 					echo '<th>КП'.$pickets['id'].'</th>';
 				}
 				
-				echo '<th class="table-title">Конец гонки</th><th class="table-title">Итоговое время</th></thead><tbody>';
+				echo '<th class="table-title">Окончание гонки</th><th class="table-title">Итоговый бонус</th><th class="table-title">Итоговый штраф</th><th class="table-title">Итоговое время</th></thead><tbody>';
 				$res = mysql_query("SELECT * FROM users LEFT JOIN race ON users.user_id = race.user_id ORDER BY kol_left_id DESC"); 
 				
 				while ( $team = mysql_fetch_array( $res ) ) 
@@ -190,7 +183,7 @@ else {
 					$res1 = mysql_query("SELECT MAX(id) AS id FROM checkpoints"); 
 					$item = mysql_fetch_assoc( $res1 );
 					
-					$fine_all = date("00:00:00");
+					$fine_all = $team['fine_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['fine'.$i] != NULL)
@@ -203,7 +196,7 @@ else {
 					}	
 					
 					// и бонусных
-					$bonus_all = date("00:00:00");
+					$bonus_all = $team['bonus_fin'];
 					for($i = 1; $i<=$item[id]; $i++ )
 					{
 						if($team['bonus'.$i] != NULL)
@@ -231,7 +224,7 @@ else {
 							$interval = $begin->diff($date);
 				
 						echo '<tr>'; 
-						echo '<th class="n"><a href="/admin/team_edit.php?team=show&id='.$team['user_id'].'" class="active">'.$team['user_name'].'</a></th>'; 
+						echo '<th class="n">'.$team['user_id'].'</th><th class="n"><a href="/admin/team_edit.php?team=show&id='.$team['user_id'].'" class="active">'.$team['user_name'].'</a></th>'; 
 						echo '<td>'.$team['kol_left_id'].' / '.$item[id].'</td><td>';
 						if($team['begin'] == NULL ) echo '-';
 						else echo $begin->format('d-m-Y H:i:s');
@@ -259,19 +252,21 @@ else {
 							$kp2->setTimezone($client);
 							
 							$intervalkp = $kp1->diff($kp2);
-										
 							
-							if($pickets['id']==$team['begin_id']) 
-							echo '<td class="err">'.$intervalkp->format('%H:%I:%S').'</td>';
-							else if($pickets['id']==$team['actual_id']) 
-							echo '<td class="act">'.$intervalkp->format('%H:%I:%S').'</td>';
-							else echo '<td>'.$intervalkp->format('%H:%I:%S').'</td>';
+							if($pickets['id'] == $team['begin_id']) echo '<td class="begin">';
+							else if($pickets['id'] == $team['actual_id'])  echo '<td class="actual">';
+							else echo '<td>';
+							if($team['pic'.$pickets['id']] == NULL) echo '-</td>';
+								else echo ''.$intervalkp->format('%H:%I:%S').'</td>';
 						}
 						echo '<td>';
 						if($team['end'] == NULL ) echo '-';
 						else echo $end->format('d-m-Y H:i:s');
 						echo '</td>';
-						echo '<td>'.$interval->format('%H:%I:%S').'</td>'; 
+						echo '<td><font color="green">'.$bonus_all.'</font></td>';
+						echo '<td><font color="red">'.$fine_all.'</font></td>';
+						if($team['end'] == NULL ) echo '<td>-</td>';
+						else echo '<td>'.$interval->format('%H:%I:%S').'</td>'; 
 						echo '</tr>'; 
 				
 				
@@ -279,12 +274,12 @@ else {
 				echo '</tbody>';
 				echo '</table>';
 				?>
-</div>
+			</div>
+			<div class="container">
+                    <p><center>Примеч.: время прохождения КП дано без учёта бонусов и штрафов<br>Итоговое время дано с учётом всех штрафов и бонусов<br><br>Розовым цветом выделен начальный КП, голубым - текущий</center></p></div>
 			
 			
-			
-			<!--	<div id ="responsecontainer"></div>
-		  End of entire page content-->
+			<!--End of entire page content-->
 			</div>
         </div>
     </div>  

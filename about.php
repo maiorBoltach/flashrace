@@ -1,6 +1,6 @@
 <?php 
-include_once '/php/config.inc.php'; 
-include_once '/php/header_logged.php';
+include_once 'php/config.inc.php'; 
+include_once 'php/header_logged.php';
 ?>
 
 <!DOCTYPE HTML>
@@ -27,7 +27,7 @@ include_once '/php/header_logged.php';
 
 <body class="left-sidebar"> 
 
-<?php include_once '/templates/preloader.php'; ?>
+<?php include_once 'templates/preloader.php'; ?>
     
 <div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
     
@@ -166,25 +166,31 @@ include_once '/php/header_logged.php';
                     <div class="overlay bg-black"></div>
                 </div>
                 <center>
-                <div class="one-forth-responsive">
-                   <a href="http://piranya.by/"><img src="images/sponsors/piranya.png" alt="img"></a>
-				   <br>
+                <div class="one-third-responsive">
+					<a href="http://turlan.by/"><img src="images/sponsors/turlan.png" alt="img"></a> 
+                     <br>
                 </div>
 				<div class="decoration hide-if-responsive"></div>
-                <div class="one-forth-responsive">
+                <div class="one-third-responsive">
                          <a href="http://podzamkom.by/"><img src="images/sponsors/podzamkom.png" alt="img"></a>
 						 <br>
                 </div>
 				
                 <div class="decoration hide-if-responsive"></div>
-                <div class="one-forth-responsive">
+                <div class="one-third-responsive last-column">
                          <a href="http://salamandra.by/"><img src="images/sponsors/salamandra.png" alt="img"></a>
 						 <br>
                 </div>
-				
 				<div class="decoration hide-if-responsive"></div>
-                <div class="one-forth-responsive last-column">
-                         <a href="http://turlan.by/"><img src="images/sponsors/turlan.png" alt="img"></a>
+				<div class="clear"></div>
+				<div class="clear"></div>
+                <div class="one-half-responsive">
+                         <a href="http://piranya.by/"><img src="images/sponsors/piranya.png" alt="img"></a>
+						 <br>
+                </div>
+				<div class="decoration hide-if-responsive"></div>
+				<div class="one-half-responsive  last-column">
+                         <a href="http://vk.com/public100905672"><img src="images/sponsors/yogurty.png" alt="img"></a>
 						 <br>
                 </div>
 				</center>
@@ -211,7 +217,7 @@ include_once '/php/header_logged.php';
                 </div>
 				</center>
 				<div class="decoration"></div>
-                <? include_once 'templates/footer.php'; ?>            
+                <?php include_once 'templates/footer.php'; ?>            
                 
             <!-- End of entire page content-->
             </div> 

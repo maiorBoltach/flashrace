@@ -1,130 +1,3 @@
-/* Framework.CSS*/
-/*
-
-    Template Name:      Enabled Mobile & Tablet Templates
-    Theme URL:          http://enableds.com
-    Author:             Enabled
-    Author URI:         http://themeforest.net/user/Enabled?ref=Enabled 
-    Author Facebook:    https://www.facebook.com/enabled.labs
-    Author Twitter:     https://twitter.com/iEnabled
-    Version:            4.0
-    License:            Regular or Extended via ThemeForest
-    Plugin Licenses:    GPL / MIT - Redistribution Allowed
-    Structure:          Each chapter from the structure can be located using 
-                        CTRL + F ( Windows ) or CMD + F ( Mac ) The titles are
-                        copy pasted as they are in the code. 
-    
-    Description:        The framework is built into one single CSS file to allow the template
-                        universal, fast access to all the items. As -webkit- browsers cache the
-                        CSS on load, this asures best loading times on all platforms and at the
-                        same time asures you will find everything you need in one single place. 
-
-                        The style.css is built for individual features of templates. All the core
-                        elements of the CSS are located in framework.css and chaptered as added
-                        below. 
-
-                        Please Note! Not following the structure presented in the documentation
-                        or altering the framework.css without proper experience can lead to the 
-                        item malfunctioning. We are not responsible for any edits you make outside
-                        the as is item. All features of this CSS are explained in the second help
-                        documentation file provided in the pack with the item purchased!
-
-    Structure:
-                        
-    01. Reset 
-    02. Typography
-    03. Background and text colors and hovers
-    04. Heading Settings
-    05. Lists and Font Icon Lists
-    06. Table Settings
-    07. Custom Heading Styles
-        a. Heading Style 1
-        b. Heading Style 2
-        c. Heading Style 3
-        d. Heading Style 4
-        e. Heading Style 5
-        f. Heading Style 6
-    08. Text Fields
-    09. Checkboxes and Radios
-    10. Image & Video Settings
-    11. Content Classes and Responsive Settings
-    12. Blockquotes and Reviews
-        a. Quote 1
-        b. Quote 2
-        c. Quote 3
-        d. Quote 4
-        e. Quote 5
-    13. User Reviews
-        a. Review 1
-        b. Review 2
-        c. Review 3
-        d. Review 4
-        e. Review 5
-        f. Review 6
-    14. Dropcaps
-    15. Calendar Design
-    16. Page Preloader
-    17. Tabs
-    18. Accordion
-    19. Toggles
-    20. Mobile Style Switches
-        a. Switch 1
-        b. Switch 2
-        c. Switch 3
-    21. Notifications
-    22. Fixed Notifications
-    23. Speach Bubbles
-    24. Charts
-    25. Buttons
-    26. Login Buttons
-    27. This or That
-        a. Style 1
-        b. Style 2 
-        c. Style 3 
-    28. Modal Forms
-    29. Simple Modal Form
-    30. Social Modal Form
-    31. Login Modal Form
-    32. Social Profile Modal
-    33. Share Bottom
-    34. Device Detection
-    35. Animated back to top
-    36. Userlist
-    37. Activity Feed
-    38. Full Map
-    39. Portfolios
-    40. Adaptive Portfolio
-    41. One Item Portfolio
-    42. Two Item Portfolio
-    43. Portfolio Wide
-    44. Filter Portfolio
-    45. Galleries
-    46. Round Square Thumbs
-    47. Justified Gallery
-    48. Pages and PageApps
-    49. Page Contact
-        a. Contact Icons
-        b. Maps
-    50. Page Login
-    51. Page Profile
-    52. Page Countdown
-    53. Page Error
-    54. PageApp Login
-    55. PageApp Register
-    56. Page Timeline
-        a. Timeline 1
-        b. Timeline 2
-    57. PageApp Checklists
-    58. PageApp Reminders
-    59. Page Blog
-    60. Page Blog Sidebar   
-    61. Image Slider Settings
-    62. Coverpage Slider
-    63. Homepage Slider
-    64. Staff Slider
-    64. Quote Slider
-*/
-
 
 /* Font Imports from Google Fonts*/
 
@@ -692,6 +565,14 @@ ol ol ol{
 .table tr.begin td{
 	background: #fbd899;
 }
+
+.table td.begin{
+	background: #fbd899;
+}
+.table td.actual{
+	background: #99bcfb;
+}
+
 
 .table tr:last-child td{
 	border-bottom:0;
